@@ -1,3 +1,5 @@
+from dbm import error
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, Blueprint, render_template, url_for, send_file, request, flash, redirect, session, abort
 from flask_sqlalchemy import SQLAlchemy
@@ -23,6 +25,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(id_user):
     return Session.get(User, int(id_user))
+
 
 def all_monsters():
     with open("./static/json/monsters.json") as f:
@@ -93,11 +96,11 @@ def index():
         text_area = request.form.get('text_area')
     return render_template('index.html', name=name)
 
-#--------------
+
+# --------------
 
 
-
-#---------------
+# ---------------
 
 @app.route("/merche.html")
 def merche():
@@ -105,7 +108,8 @@ def merche():
         name = current_user.username
     else:
         name = None
-    return render_template("merche.html", name = name)
+    return render_template("merche.html", name=name)
+
 
 @app.route('/charlist.html')
 @login_required
@@ -160,9 +164,7 @@ def create_char():
         new_note = Note(text=note_text)
         db.session.add(new_note)
 
-
         db.session.flush()
-
 
         new_character = Character(
             name=name_ch,
@@ -209,7 +211,6 @@ def create_char():
                     )
                     db.session.add(new_ch_equipment)
 
-
         db.session.commit()
         return redirect(url_for("charlist"))
 
@@ -222,7 +223,7 @@ def dice():
         name = current_user.username
     else:
         name = None
-    return render_template("dice.html", name = name)
+    return render_template("dice.html", name=name)
 
 
 @app.route("/character/<id_class_f>", methods=("POST", "GET"))
@@ -230,13 +231,16 @@ def dice():
 def character(id_class_f):
     character_obj = Character.query.filter_by(id_character=id_class_f).first()
 
+    if current_user.id_user != character_obj.id_user:
+        return redirect(url_for('charlist'))
+
     if character_obj is None:
         abort(404)
     character_dict = {
-        'name': character_obj.name, 
-        'level': character_obj.level, 
-        'class_name': character_obj.class_name.class_name, 
-        'racial_group': character_obj.racial_group.racial_group, 
+        'name': character_obj.name,
+        'level': character_obj.level,
+        'class_name': character_obj.class_name.class_name,
+        'racial_group': character_obj.racial_group.racial_group,
         'strength': character_obj.strength,
         'dexterity': character_obj.dexterity,
         'constitution': character_obj.constitution,
@@ -286,12 +290,11 @@ def character(id_class_f):
         except Exception as e:
             db.session.rollback()
             print("Помилка оновлення в БД:", e)
-        
 
     print(proficiencies_list)
-    
-    return render_template("character.html", character=character_dict, name=current_user.username, proficiencies_list=proficiencies_list)
 
+    return render_template("character.html", character=character_dict, name=current_user.username,
+                           proficiencies_list=proficiencies_list)
 
 
 @app.route('/auth.html', methods=("POST", "GET"))
@@ -340,10 +343,7 @@ def registration():
     return render_template("registration.html")
 
 
-
-
-
-#------------DB---------
+# ------------DB---------
 class UserType(db.Model):
     id_user_type = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_type = db.Column(db.String(50), nullable=False)
@@ -455,7 +455,5 @@ class CharacterEquipment(db.Model):
     character = db.relationship('Character', backref='character_equipments')
 
 
-
 if __name__ == "__main__":
     app.run(debug=True)
-
