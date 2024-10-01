@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-reg-auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header-footer-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-scrollbar.css') }}">
+{% endblock %}
+
+{% block title %}
+    <title>Вхід</title>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="wrapper">
+                <form class="aunt" action="" method="POST">
+                    <div class="buttons">
+                        <h1 class="text">Вхід</h1>
+                        <input class="reg-input" type="email" name="email" id="email" placeholder="E-mail" required><br>
+                        <input class="reg-input" type="password" name="password" id="password" placeholder="Пароль"
+                               required><br>
+                        <input class="button reg-input" type="submit" value="ВХІД">
+                        <div class="pas">
+                            <p>Якщо не авторизовані, натисніть <a class="dec" href="{{url_for('authorization.registration')}}"> РЕЄСТРАЦІЯ</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/script-scrollbar.js') }}"></script>
+{% endblock %}

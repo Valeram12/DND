@@ -30,26 +30,21 @@
             window.scroll(0, 0);
         });
     </script>
-
-
-
- <!--   <script async defer data-website-id="d7fa3c92-093e-431d-b7b3-1ada0da53156"
-        src="https://umami.matteas.nz/umami.js"></script>-->
 </head>
 
 <body style="margin: 0">
     <header style="position: fixed; width: 100%;">
 
         <div class="header-frame">
-            <div class="header-logo"><a href="/"><img src="../static/img/logo.png"></a></div>
+            <div class="header-logo"><a href="{{ url_for('main.index') }}"><img src="../static/img/logo.png"></a></div>
             <div class="header-nav">
-                <a href="/bestiary/aboleth" >
+                <a href="{{ url_for('bestiary.detail_bestiary', monsters_name='aboleth') }}" >
                     <p class="header-nav-element">Бестіарій</p>
                 </a>
-                <a href="#">
+                <a href="">
                     <p class="header-nav-element">Дайси</p>
                 </a>
-                <a href="/merche.html">
+                <a href="{{url_for('main.merche')}}">
                     <p class="header-nav-element">Мерч</p>
                 </a>
                 {% if current_user.is_authenticated %}
@@ -70,16 +65,16 @@
                                 <div class="user_info_window_text">Dungeon Master</div>
                                 <div class="user_info_window_text">{{name}}</div>
                                 <div style="display: flex;">
-                                    <div class="user_info_window_button"><a class="a_text" href="{{ url_for('charlist') }}">Мої персонажі</a></div>
+                                    <div class="user_info_window_button"><a class="a_text" href="{{ url_for('characters.charlist') }}">Мої персонажі</a></div>
     
-                                    <div class="user_info_window_button"><a class="a_text" href="/logout">Вихід</a></div>
+                                    <div class="user_info_window_button"><a class="a_text" href="{{url_for('authorization.logout')}}">Вихід</a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% else %}
-                        <a href="auth.html"><p class="header-nav-element">Вхід</p></a>
-                        <a href="registration.html"><p class="header-nav-element">Реєстрація</p></a>
+                        <a href="{{url_for('authorization.login')}}"><p class="header-nav-element">Вхід</p></a>
+                        <a href="{{url_for('authorization.registration')}}"><p class="header-nav-element">Реєстрація</p></a>
                     {% endif %}
             </div>
         </div>
