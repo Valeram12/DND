@@ -12,3 +12,6 @@
 /DnD Flask/DnD/app/static
 /DnD Flask/DnD/app/__pycache__
 /DnD Flask/DnD/migrations/__pycache__
+
+/DnD React/dndreact/.idea
+/DnD React/dndreact/node_modules
