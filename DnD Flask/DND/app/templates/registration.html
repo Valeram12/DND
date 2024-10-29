@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-reg-auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header-footer-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-scrollbar.css') }}">
+{% endblock %}
+
+{% block title %}
+    <title>Реєстрація</title>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="wrapper">
+                <form action="" method="POST">
+                    <div class="buttons">
+                        <h1 class="text">Реєстрація</h1>
+                        <input class="reg-input" type="text" name="username" id="name" placeholder="Нікнейм" required
+                               pattern="^[a-zA-Z][a-zA-Z0-9_]{2,19}$"
+                               title="Ім'я користувача має починатися з літери і містити 3-20 символів. Він може містити літери, цифри та підкреслення."
+                        ><br>
+                        <input class="reg-input" type="email" name="email" id="email" placeholder="E-mail" required><br>
+                        <input class="reg-input" type="password" name="password" id="password" placeholder="Пароль"
+                               required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$"
+                               title="Пароль має бути не менше 8 символів, містити хоча б одну букву та одну цифру."
+                        ><br>
+                        <input class="reg-input" type="password" id="confirm_password" name="confirm_password"
+                               placeholder="Підтвердіть пароль" required><br>
+                        <input class="button reg-input" type="submit" value="РЕЄСТРАЦІЯ">
+                        <div class="pas">
+                            <p>Якщо вже зареєстровані, натисніть <a class="dec" href="auth.html"> ВХІД</a></p>
+                            <p style="width: 273px; font-size: 8px">Ім'я користувача має починатися з літери і містити
+                                3-20 символів. Він може містити літери, цифри та підкреслення.</p>
+                            <p style="width: 273px; font-size: 8px">Пароль має бути не менше 8 символів, містити хоча б
+                                одну букву та одну цифру.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/script-scrollbar.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style-reset.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/charlist.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/header-footer-style.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/show-move.css') }}">
+{% endblock %}
+
+{% block title %}
+    <title>Список персонажів</title>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="charlist-container">
+            <div class="charlist-itself">
+
+
+                {% for character_l in character_dict.items() %}
+                    <a href="{{ url_for('characters.character', id_class_f=character_l[0]) }}">
+                        <div class="charlist-element">
+                            <div class="badge-container">
+                                {% if character_l[1][1] == "Варвар" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-barbar.png') }}">
+                                {% elif character_l[1][1] == "Бард" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-bard.png') }}">
+                                {% elif character_l[1][1] == "Друїд" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-druid.png') }}">
+                                {% elif character_l[1][1] == "Рейнджер" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-hunt.png') }}">
+                                {% elif character_l[1][1] == "Чаклун" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-mage.png') }}">
+                                {% elif character_l[1][1] == "Монах" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-monk.png') }}">
+                                {% elif character_l[1][1] == "Паладін" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-pala.png') }}">
+                                {% elif character_l[1][1] == "Розбійник" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-plut.png') }}">
+                                {% elif character_l[1][1] == "Клірик" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-priest.png') }}">
+                                {% elif character_l[1][1] == "Заклинатель" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-sorc.png') }}">
+                                {% elif character_l[1][1] == "Воїн" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-war.png') }}">
+                                {% elif character_l[1][1] == "Чорнокнижник" %}
+                                    <img src="{{ url_for('static', filename='/img/ico-warlock.png') }}">
+
+                                {% endif %}
+                            </div>
+                            <div class="name-container">
+                                <div class="name-top charlist-text charlist-text-interval">
+                                    <p>Ім'я</p>
+                                </div>
+                                <div class="name-bot charlist-text">
+                                    <p>{{ character_l[1][0] }}</p>
+                                </div>
+                            </div>
+                            <div class="class-container">
+                                <div class="class-top charlist-text charlist-text-interval">
+                                    <p>Клас:</p>
+                                </div>
+                                <div class="class-bot charlist-text">
+                                    <p>{{ character_l[1][1] }}</p>
+                                </div>
+                            </div>
+                            <div class="race-container">
+                                <div class="race-top charlist-text charlist-text-interval">
+                                    <p>Раса:</p>
+                                </div>
+                                <div class="race-bot charlist-text">
+                                    <p>{{ character_l[1][2] }}</p>
+                                </div>
+                            </div>
+                            <div class="level-container">
+                                <div class="level-top charlist-text charlist-text-interval">
+                                    <p>Рівень:</p>
+                                </div>
+                                <div class="level-bot charlist-text">
+                                    <p>{{ character_l[1][3] }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endfor %}
+
+                <a href="{{ url_for('characters.create_char') }}">
+                    <div class="charlist-element charlist-new charlist-text">
+                        <p>Створити нового персонажа</p>
+                        <img clas="border-hover" src="../static/img/plus.png">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/script-scrollbar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script-header.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style-reset.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style-create-char.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/header-footer-style.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/show-move.css') }}">
+
+{% endblock %}
+
+{% block title %}
+    <title>Створення персонажу</title>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <form action="" method="POST">
+            <div class="create-char-top">
+                <div class="create-char-top-container">
+                    <div>
+                        <div class="create-char-caption" id="id-create-char-caption">
+                            <p>Створення персонажу</p>
+                        </div>
+                    </div>
+                    <div class="create-char-question" id="id-create-char-question">
+                        <p>Які у вас ім'я, раса, клас<br>та рівень?</p>
+                    </div>
+                    <div class="create-char-input-container">
+                        <div class="char-input-element">
+                            <div class="char-input-text more-margin">Ім'я</div>
+                            <input class="name-input" maxlength="50" type="text" placeholder="Ім'я персонажа"
+                                   name="name_ch" required>
+                        </div>
+                        <div class="char-input-element">
+                            <div class="char-input-text">Раса</div>
+                            <div class="list-choice">
+                                <div class="list-choice-title">Раса</div>
+                                <div class="list-choice-objects">
+                                    <label>
+                                        <input type="radio" name="race" value="Дракононароджений" checked/> <span>Дракононароджений</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Дварф"/> <span>Дварф</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Ельф"/> <span>Ельф</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Гном"/> <span>Гном</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Напівельф"/> <span>Напівельф</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Напіворк"/> <span>Напіворк</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Напіврослик"/> <span>Напіврослик</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Людина"/> <span>Людина</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Тифлінг"/> <span>Тифлінг</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="race" value="Орк"/> <span>Орк</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="char-input-element">
+                            <div class="char-input-text">Клас</div>
+                            <div class="list-choice">
+                                <div class="list-choice-title">Клас</div>
+                                <div class="list-choice-objects">
+                                    <label>
+                                        <input type="radio" name="class" value="Воїн" checked/> <span>Воїн</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Паладін"/> <span>Паладін</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Чаклун"/> <span>Чаклун</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Варвар"/> <span>Варвар</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Клірик"/> <span>Клірик</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Чорнокнижник"/>
+                                        <span>Чорнокнижник</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Розбійник"/> <span>Розбійник</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Заклинатель"/> <span>Заклинатель</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Монах"/> <span>Монах</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Рейнджер"/> <span>Рейнджер</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Друїд"/> <span>Друїд</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="class" value="Бард"/> <span>Бард</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="char-input-element">
+                            <div class="char-input-text">Рівень</div>
+                            <input type="number" min="1" max="20" class="input-level" value="1" name="level"
+                                   onkeydown="return (event.key >= '0' && event.key <= '') || event.key === '.' || event.key === ',' || event.key === 'Backspace' || event.key === 'Delete' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Tab'">
+                        </div>
+                    </div>
+                    <div class="random-stats-text">
+                        <p>Дозвольте фортуні створити вам два набори характеристик та оберіть той, що подобається
+                            більше.</p>
+                    </div>
+                    <div class="random-stats-container">
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                    </div>
+                    <div class="random-stats-container">
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                        <input type="text" value="?" readonly>
+                    </div>
+                    <div class="center-button">
+                        <div class="random-stats-button" onclick="generateRandomStats()">Згенерувати</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-char-stats">
+                <div class="create-char-top-container">
+                    <div class="create-char-stats-caption" id="id-create-char-stats-caption">Значення навичок:</div>
+                    <div class="create-char-stats-container">
+                        <div class="create-char-stats-element">
+                            <div class="create-char-stats-text">Сила</div>
+                            <img src="{{ url_for('static', filename='img/strength.png') }}">
+                            <input type="number" min="1" max="20" class="input-level center-input" value="1"
+                                   name="strength"
+                                   onkeydown="return (event.key >= '0' && event.key <= '') || event.key === '.' || event.key === ',' || event.key === 'Backspace' || event.key === 'Delete' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Tab'">
+                        </div>
+                        <div class="create-char-stats-element">
+                            <div class="create-char-stats-text">Спритність</div>
+                            <img src="{{ url_for('static', filename='img/dexterity.png') }}">
+                            <input type="number" min="1" max="20" class="input-level center-input" value="1"
+                                   name="dexterity"
+                                   onkeydown="return (event.key >= '0' && event.key <= '') || event.key === '.' || event.key === ',' || event.key === 'Backspace' || event.key === 'Delete' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Tab'">
+                        </div>
+                        <div class="create-char-stats-element">
+                            <div class="create-char-stats-text">Статура</div>
+                            <img src="{{ url_for('static', filename='img/constitution.png') }}">
+                            <input type="number" min="1" max="20" class="input-level center-input" value="1"
+                                   name="constitution"
+                                   onkeydown="return (event.key >= '0' && event.key <= '') || event.key === '.' || event.key === ',' || event.key === 'Backspace' || event.key === 'Delete' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Tab'">
+                        </div>
+                    </div>
+                    <div class="create-char-stats-container">
+                        <div class="create-char-stats-element">
+                            <div class="create-char-stats-text">Інтелект</div>
+                            <img src="{{ url_for('static', filename='img/intelect.png') }}">
+                            <input type="number" min="1" max="20" class="input-level center-input" value="1"
+                                   name="intelect"
+                                   onkeydown="return (event.key >= '0' && event.key <= '') || event.key === '.' || event.key === ',' || event.key === 'Backspace' || event.key === 'Delete' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Tab'">
+                        </div>
+                        <div class="create-char-stats-element">
+                            <div class="create-char-stats-text">Мудрість</div>
+                            <img src="{{ url_for('static', filename='img/wisdom.png') }}">
+                            <input type="number" min="1" max="20" class="input-level center-input" value="1"
+                                   name="wisdom"
+                                   onkeydown="return (event.key >= '0' && event.key <= '') || event.key === '.' || event.key === ',' || event.key === 'Backspace' || event.key === 'Delete' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Tab'">
+                        </div>
+                        <div class="create-char-stats-element">
+                            <div class="create-char-stats-text">Харизма</div>
+                            <img src="{{ url_for('static', filename='img/charisma.png') }}">
+                            <input type="number" min="1" max="20" class="input-level center-input" value="1"
+                                   name="charisma"
+                                   onkeydown="return (event.key >= '0' && event.key <= '') || event.key === '.' || event.key === ',' || event.key === 'Backspace' || event.key === 'Delete' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Tab'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-char-bot">
+                <div class="create-char-top-container">
+                    <div class="create-char-stats-caption2" id="id-create-char-stats-caption some-margin">Оберіть<br>
+                        навички та спорядження:
+                    </div>
+                    <div class="create-char-start-container">
+                        <div class="create-char-start-container-element">
+                            <div class="create-char-start-prof">
+                                <div class="create-char-start-prof-text">Оберіть 3 навички:</div>
+                                <div class="test">
+                                    <div class="test-column">
+                                        <input type="checkbox" id="Arcane" name="answer1" value="Магія">
+                                        <label for="Arcane"><span></span>Магія</label>
+
+                                        <input type="checkbox" id="Deception" name="answer1" value="Обман">
+                                        <label for="Deception"><span></span>Обман</label>
+
+                                        <input type="checkbox" id="History" name="answer1" value="Історія">
+                                        <label for="History"><span></span>Історія</label>
+
+                                        <input type="checkbox" id="Sleight_of_hand" name="answer1"
+                                               value="Легка рука">
+                                        <label for="Sleight_of_hand"><span></span>Легка рука</label>
+
+                                        <input type="checkbox" id="Medicine" name="answer1" value="Медицина">
+                                        <label for="Medicine"><span></span>Медицина</label>
+                                    </div>
+                                    <div class="test-column">
+                                        <input type="checkbox" id="Nature" name="answer1" value="Природа">
+                                        <label for="Nature"><span></span>Природа</label>
+
+                                        <input type="checkbox" id="Religion" name="answer1" value="Релігія">
+                                        <label for="Religion"><span></span>Релігія</label>
+
+                                        <input type="checkbox" id="Investigation" name="answer1" value="Розслідування">
+                                        <label for="Investigation"><span></span>Розслідування</label>
+
+                                        <input type="checkbox" id="Persuasiveness" name="answer1"
+                                               value="Переконливість">
+                                        <label for="Persuasiveness"><span></span>Переконливість</label>
+
+                                        <input type="checkbox" id="Animal_taming" name="answer1"
+                                               value="Приборкання тварин">
+                                        <label for="Animal_taming"><span></span>Приборкання тварин</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="create-char-start-container-element">
+                            <div class="create-char-start-prof">
+                                <div class="create-char-start-prof-text">Оберіть 1 зброю:</div>
+                                <div class="test less-width">
+                                    <div class="test-column-1 some-margin">
+                                        <input type="checkbox" id="Spear" name="answer2" value="Спис">
+                                        <label for="Spear" nowrap><span></span>Спис</label>
+
+                                        <input type="checkbox" id="Bow" name="answer2" value="Лук">
+                                        <label for="Bow" nowrap><span></span>Лук</label>
+
+                                        <input type="checkbox" id="Bastard_sword" name="answer2" value="Полуторний меч">
+                                        <label for="Bastard_sword" nowrap><span></span>Полуторний меч</label>
+
+                                        <input type="checkbox" id="simple_weapon" name="answer2" value="Проста зброя">
+                                        <label for="simple_weapon" nowrap><span></span>Проста зброя</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="create-char-start-container-element">
+                            <div class="create-char-start-prof">
+                                <div class="create-char-start-prof-text">Оберіть 1 обладунок:</div>
+                                <div class="test">
+                                    <div class="test-column-2 some-margin">
+                                        <input type="checkbox" id="scalemail" name="answer2"
+                                               value="Лускатий обладунок (17)">
+                                        <label for="scalemail" nowrap><span></span>Лускатий обладунок (17)</label>
+
+                                        <input type="checkbox" id="chainmail" name="answer2"
+                                               value="Кольчужний обладунок (16)">
+                                        <label for="chainmail" nowrap><span></span>Кольчужний обладунок (16)</label>
+
+                                        <input type="checkbox" id="stugleather" name="answer2"
+                                               value="Клепаний шкіряний обладунок (14)">
+                                        <label for="stugleather" nowrap><span></span>Клепаний шкіряний обладунок
+                                            (14)</label>
+
+                                        <input type="checkbox" id="letherman" name="answer2"
+                                               value="Шкіряний обладунок (12)">
+                                        <label for="letherman" nowrap><span></span>Шкіряний обладунок (12)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="create-char-start-container-element">
+                            <div class="create-char-start-prof">
+                                <div class="create-char-start-prof-text">Оберіть 1 спорядження:</div>
+                                <div class="test less-width">
+                                    <div class="test-column-3 some-margin">
+                                        <input type="checkbox" id="prayerbook" name="answer2" value="Молитовник">
+                                        <label for="prayerbook" nowrap><span></span>Молитовник</label>
+
+                                        <input type="checkbox" id="holysymbol" name="answer2" value="Святий символ">
+                                        <label for="holysymbol" nowrap><span></span>Святий символ</label>
+
+                                        <input type="checkbox" id="explorerkit" name="answer2" value="Набір дослідника">
+                                        <label for="explorerkit" nowrap><span></span>Набір дослідника</label>
+
+                                        <input type="checkbox" id="handicrafttools" name="answer2"
+                                               value="Ремісничі інструменти">
+                                        <label for="handicrafttools" nowrap><span></span>Ремісничі інструменти</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-button-flex">
+                <input type="submit" class="submit-button" value="Почати пригоди">
+            </div>
+        </form>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/script-char-create.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script-header.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script-scrollbar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script-create-char-random.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script-create-char.js') }}"></script>
+
+{% endblock %}

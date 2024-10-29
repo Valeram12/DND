@@ -1,0 +1,125 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="keywords" content="DnD, dungeons and dragons, roleplay, dice, roller, 3D, RPG" />
+    <meta name="description" content="An Interactive, Online 3D Dice Roller" />
+
+    <title>Дайси</title>
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/DnD-ico.ico')}}">
+    <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/header-footer-style.css')}}">
+    <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/style-reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/show-move.css')}}">
+
+
+    <style type="text/css">
+        @import "../static/css/main.css";
+    </style>
+    <style type="text/css">
+        @import "../static/css/dice.css";
+    </style>
+
+    <!-- New Path -->
+    <script>
+        document.documentElement.style.overflow = 'hidden';
+        document.addEventListener('scroll', function (e) {
+            e.preventDefault();
+            window.scroll(0, 0);
+        });
+    </script>
+</head>
+
+<body style="margin: 0">
+    <header style="position: fixed; width: 100%;">
+
+        <div class="header-frame">
+            <div class="header-logo"><a href="{{ url_for('main.index') }}"><img src="../static/img/logo.png"></a></div>
+            <div class="header-nav">
+                <a href="{{ url_for('bestiary.detail_bestiary', monsters_name='aboleth') }}" >
+                    <p class="header-nav-element">Бестіарій</p>
+                </a>
+                <a href="">
+                    <p class="header-nav-element">Дайси</p>
+                </a>
+                <a href="{{url_for('main.merche')}}">
+                    <p class="header-nav-element">Мерч</p>
+                </a>
+                {% if current_user.is_authenticated %}
+                    <div class="acc-svg-container">
+                        <svg id="id_svg" width="40" height="40" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <rect width="30" height="30" fill="url(#pattern0)" />
+                            <defs>
+                                <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                    <use xlink:href="#image0_209_43" transform="scale(0.0333333)" />
+                                </pattern>
+                                <image id="image0_209_43" width="30" height="30"
+                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAalJREFUSEvtlutNw0AQhGcqgA6ACkgqACoAKgAqIFSAqACoAKiApAKSCggVAB2QCgYNukPWOfadY0UREiv5h2N7v529fYTYkHFDXKwElnQCYD8EPSc56SqgE1jSOYBbANsJ6AvAFcnH0gCKwZLuAFxmHN+THJXAi8Ahtc8lDgGckhzn3i0FzytnugAwimkN6Xc2tipnPuwNlrQL4L3iaEjSgfyapAGA18pPeyQ/2uBZxZIOAbwEJzOSvq+ZpCmAg/DgiKTvG60ruLF4kuLrD3bIktwuPkP37NLzkxTrYEEybbea8qziAHZ/noWvL9J+DQX2EJ4/kXS/t1op2AqsaCd4cyBxWBgSQZ8ABiSdof7goNqVa1gclanjNweQVnwTvUhx/FiSlUeFMQADfzJQojT66gTOpa/L878BDsPEQ8LTzJfNE8rXlOSsVHVWcRiZ1wC8g3P96Wr2grjpNTKT/iwVE9+r9XvVQaPijquwKajGFdkGdsqOu8pM3p+Q9BHVrA1c3Tar8hu3WRvYy93Tqo95qSz9K5St6j7Utm//wevKbHlVrzuCjZ3xN5Iyjh/ou2QrAAAAAElFTkSuQmCC" />
+                            </defs>
+                        </svg>
+                        <div class="user_info_window user_info_display user_info_transition">
+                            <div style="margin-top: 7%;">
+                                <div class="user_info_window_text">Dungeon Master</div>
+                                <div class="user_info_window_text">{{name}}</div>
+                                <div style="display: flex;">
+                                    <div class="user_info_window_button"><a class="a_text" href="{{ url_for('characters.charlist') }}">Мої персонажі</a></div>
+    
+                                    <div class="user_info_window_button"><a class="a_text" href="{{url_for('authorization.logout')}}">Вихід</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                        <a href="{{url_for('authorization.login')}}"><p class="header-nav-element">Вхід</p></a>
+                        <a href="{{url_for('authorization.registration')}}"><p class="header-nav-element">Реєстрація</p></a>
+                    {% endif %}
+            </div>
+        </div>
+
+    </header>
+    <main>
+        <div id="info_div" style="display: none">
+            <div class="center_field">
+                <span id="label"></span>
+            </div>
+            <div class="center_field">
+                <div class="bottom_field">
+                    <span id="labelhelp">Натисніть, щоб почати вибір кубиків заново або натисніть та потягніть мишу, щоб
+                        перекинути кубики</span>
+                </div>
+            </div>
+        </div>
+        <div id="selector_div" style="display: none">
+            <div class="center_field">
+                <div id="sethelp">
+                    Виберіть набір кубиків, клацнувши на кубик або за допомогою введення з клавіатури, </br>
+                    потім зимітуйте кидання кубиків натиснувши та потягнувши мишу по екрану, </br>
+                    а потім відпустивши її або натисніть кнопку кинути.
+                </div>
+            </div>
+            <div class="center_field">
+                <input type="text" id="set" value="6d6"></input><br />
+                <button id="clear">Онулити</button>
+                <button style="margin-left: 0.6em" id="throw">Кинути</button>
+            </div>
+        </div>
+        <div id="canvas"></div>
+    </main>
+    <!-- <script src="{{url_for('static', filename='js/script-header.js')}}"></script> -->
+    <script src="../static/js/libs/three.min.js"></script>
+    <script src="../static/js/libs/cannon.min.js"></script>
+    <script src="../static/js/script-header.js"></script>
+
+    <script type="text/javascript" src="../static/js/teal.js"></script>
+    <script type="text/javascript" src="../static/js/dice.js"></script>
+    <script type="text/javascript" src="../static/js/main.js"></script>
+    <script type="text/javascript" defer="defer">
+        dice_initialize(document.body);
+    </script>
+
+</body>
+
+</html>

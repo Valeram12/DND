@@ -3,3 +3,12 @@
 /lab1/.env
 /lab1/__pycache__
 /lab1/app/static/
+
+
+/DnD Flask/DnD/.env
+/DnD Flask/DnD/.idea
+/DnD Flask/DnD/.venv
+/DnD Flask/DnD/__pycache__
+/DnD Flask/DnD/app/static
+/DnD Flask/DnD/app/__pycache__
+/DnD Flask/DnD/migrations/__pycache__
