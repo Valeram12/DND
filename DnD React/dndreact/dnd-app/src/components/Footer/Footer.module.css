@@ -1,0 +1,94 @@
+footer {
+    height: 254px;
+    background: black;
+    padding-top: 61px;
+  }
+  
+  .footerTop {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 110px;
+    margin-right: 140px;
+  }
+  
+  .footerList {
+    display: flex;
+  }
+  
+  .footerListElement {
+    margin-left: 20px;
+  }
+  
+  .footerListElement p {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .footerListElement:hover p {
+    color: #9c9c9c;
+    transition: 0.3s;
+  }
+  
+  .footerSocial {
+    display: flex;
+    justify-content: right;
+    margin-right: 188px;
+    margin-top: 20px;
+  }
+  
+  .footerSocialElement {
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+    margin-left: 4px;
+  }
+  
+  .instagram svg {
+    fill: white;
+    transition: 0.3s;
+  }
+  
+  .instagram:hover svg {
+    fill: rgb(212, 107, 9);
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .twitter svg {
+    fill: white;
+    transition: 0.3s;
+  }
+  
+  .twitter:hover svg {
+    fill: #00acee;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .facebook svg {
+    fill: white;
+    transition: 0.3s;
+  }
+  
+  .facebook:hover svg {
+    fill: #3b5998;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  #id_svg{
+    cursor:pointer
+  }
+
+  .a_text{
+    text-decoration: none;
+    color: white;
+  }
