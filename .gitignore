@@ -1,3 +1,5 @@
+.idea
+
 /lab1/.venv
 /lab1/.idea
 /lab1/.env
@@ -15,3 +17,6 @@
 
 /DnD React/dndreact/.idea
 /DnD React/dndreact/node_modules
+/DnD React/dndreact/dnd-app/node_modules/
+/DnD React/dndreact/dnd-app/public/
+/DnD React/dndreact/dnd-app/src/assets/
