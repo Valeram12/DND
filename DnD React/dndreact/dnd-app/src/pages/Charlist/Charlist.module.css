@@ -1,7 +1,8 @@
-header{
+header {
     position: relative;
     z-index: 2;
 }
+
 .charlist-container {
     width: 100%;
     min-height: 900px;
@@ -13,6 +14,16 @@ header{
     display: flex;
     justify-content: center;
 }
+
+
+.charlist-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
 
 .charlist-itself {
     padding-top: 109px;
@@ -31,25 +42,82 @@ header{
     padding-left: 38px;
     padding-right: 64px;
     cursor: pointer;
-    transition:0.3s !important;
+    transition: 0.3s !important;
 }
-.charlist-element:hover{
-    box-shadow: 0px 0px 25px -1px rgba(255,255,255,1);
-    transition:0.3s !important;
+
+.charlist-element:hover {
+    box-shadow: 0px 0px 25px -1px rgba(255, 255, 255, 1);
+    transition: 0.3s !important;
 }
-.charlist-element:hover img{
-    transition:0.3s !important;
+
+.charlist-element:hover img {
+    transition: 0.3s !important;
     transform: scale(1.4);
 }
+
 .charlist-element img {
-    transition:0.3s !important;
+    transition: 0.3s !important;
     width: 90px;
     height: 90px;
     margin-top: 27px;
 }
-.badge-container{
+
+
+.charlist-delete-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 140px;
+    background: rgba(1, 0, 0, 0.75);
+    border: 1px solid #FFFFFF;
+    border-radius: 40px;
+    margin-bottom: 60px;
+    margin-left:10px;
+    cursor: pointer;
+    transition: 0.3s !important;
+}
+
+.charlist-delete-element:hover {
+    box-shadow: 0px 0px 25px -1px rgba(255, 255, 255, 1);
+    transition: 0.3s !important;
+}
+
+.charlist-delete-element:hover .delete {
+    transition: 0.3s !important;
+    transform: scale(1.4);
+}
+
+.charlist-delete-element .delete {
+    transition: 0.3s !important;
+    width: 50px;
+}
+
+.cross {
     position: relative;
 }
+
+.cross::before,
+.cross::after {
+    content: '';
+    position: absolute;
+    background-color: #781fd3;
+    width: 100%;
+    height: 10px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.cross::after {
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+
+.badge-container {
+    position: relative;
+}
+
 .charlist-text p {
     font-family: 'Inter';
     font-style: normal;
@@ -60,11 +128,12 @@ header{
     color: #FFFFFF;
 }
 
-.charlist-text-interval{
+.charlist-text-interval {
     margin-top: 35px;
     margin-bottom: 17px;
 }
-.charlist-new img{
+
+.charlist-new img {
     width: 45px;
     height: 40px;
     margin-top: 50px;
@@ -72,11 +141,12 @@ header{
     border: 0px solid rgba(255, 255, 255, 1);
 }
 
-.charlist-new p{
+.charlist-new p {
     margin-left: 70px;
     margin-top: 60px;
 }
-.charlist-new:hover .charlist img{
+
+.charlist-new:hover .charlist img {
     border: 1px solid rgba(255, 255, 255, 1);
 }
 

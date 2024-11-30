@@ -1,25 +1,25 @@
-.maincls{
+.maincls {
     background-color: black;
 }
-.show-down-delay{
+
+.show-down-delay {
     opacity: 1 !important;
     transform: translateY(-120px) !important;
     transition: opacity 1s, transform 1s;
     transition-delay: 0.6s;
 }
 
-  .show-down {
+.show-down {
     opacity: 1 !important;
     transform: translateY(-120px) !important;
     transition: opacity 1s, transform 1s !important;
-  }
+}
 
-  .show-left {
+.show-left {
     opacity: 1 !important;
     transform: translateX(120px) !important;
     transition: opacity 1s, transform 1s;
-  }
-
+}
 
 
 .create-char-top {
@@ -736,6 +736,11 @@
     cursor: pointer;
     color: #FFFFFF;
     margin-top: 20px;
+}
+
+.submit-button:disabled {
+    background: rgba(180, 22, 22, 0.54);
+    pointer-events: none;
 }
 
 .submit-button:hover {

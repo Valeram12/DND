@@ -18,6 +18,7 @@ const Navbar = (props: Props) => {
 
     const handleLogout = async () => {
         await logout();
+        handleSvgClick();
     };
 
 
@@ -31,12 +32,12 @@ const Navbar = (props: Props) => {
                     </Link>
                 </div>
                 <nav className={styles.headerNav}>
-                    <Link to="/bestiary/aboleth">
-                        <p className={styles.headerNavElement}>Бестіарій</p>
-                    </Link>
-                    <Link to="/dice">
-                        <p className={styles.headerNavElement}>Дайси</p>
-                    </Link>
+                    {/*<Link to="/bestiary/aboleth">*/}
+                    {/*    <p className={styles.headerNavElement}>Бестіарій</p>*/}
+                    {/*</Link>*/}
+                    {/*<Link to="/dice">*/}
+                    {/*    <p className={styles.headerNavElement}>Дайси</p>*/}
+                    {/*</Link>*/}
                     <Link to="/merche">
                         <p className={styles.headerNavElement}>Мерч</p>
                     </Link>
@@ -67,14 +68,14 @@ const Navbar = (props: Props) => {
 
                             <div className={`${styles.userInfoWindow} ${showInfo ? styles.showRight : ''}`}>
                                 <div className={styles.navdiv1}>
-                                    <div className={styles.userInfoWindowText}>Dungeon Master</div>
+                                    {/*<div className={styles.userInfoWindowText}>Dungeon Master</div>*/}
                                     <div className={styles.userInfoWindowText}>{user.username}</div>
                                     <div className={styles.navdiv2}>
                                         <div className={styles.userInfoWindowButton}>
-                                            <Link className={styles.a_text} to="/charlist">Мої персонажі</Link>
+                                            <Link className={styles.a_text} to="/charlist" onClick={handleSvgClick}>Мої персонажі</Link>
                                         </div>
                                         <div className={styles.userInfoWindowButton}>
-                                            <div className={styles.a_text} onClick={() => handleLogout()}>Вихід</div>
+                                            <div className={styles.a_text} onClick={() => handleLogout()} >Вихід</div>
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +83,7 @@ const Navbar = (props: Props) => {
                         </div>
                     ) : (
                         <>
-                            <Link to="/auth">
+                            <Link to="/auth" >
                                 <p className={styles.headerNavElement}>Вхід</p>
                             </Link>
                             <Link to="/registration">

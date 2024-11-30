@@ -3,6 +3,7 @@ import styles from "./CreateChar.module.css"
 import "../../assets/css/show-move.css"
 import httpClient from "../../Helpers/httpClient";
 import {useNavigate} from "react-router-dom";
+import Modal from "../../components/ModalWindow/Modal";
 
 const CreateChar: React.FC = () => {
     const [name, setName] = useState<string>('');
@@ -15,12 +16,28 @@ const CreateChar: React.FC = () => {
     ]);
 
     const handleGenerateStats = () => {
-        // Example: Generate random stats between 3 and 18
+        // Генерація випадкових значень між 3 і 18 для кожного параметра
+        const generatedStats = Array(6)
+            .fill(0)
+            .map(() => Math.floor(Math.random() * 16) + 3);
+
+        // Оновлення `randomStats`
         setRandomStats([
-            Array(6).fill(0).map(() => Math.floor(Math.random() * 16) + 3),
+            generatedStats,
             Array(6).fill(0).map(() => Math.floor(Math.random() * 16) + 3),
         ]);
+
+        // Оновлення `stats` відповідно до `generatedStats`
+        setStats({
+            strength: generatedStats[0],
+            dexterity: generatedStats[1],
+            constitution: generatedStats[2],
+            intellect: generatedStats[3],
+            wisdom: generatedStats[4],
+            charisma: generatedStats[5],
+        });
     };
+
 
     const strengthImg = '../../assets/img/strength.png';
     const dexterityImg = '../../assets/img/dexterity.png';
@@ -56,7 +73,7 @@ const CreateChar: React.FC = () => {
         {id: 'Історія', label: 'Історія'},
         {id: 'Легка рука', label: 'Легка рука'},
         {id: 'Медицина', label: 'Медицина'},
-        {id: 'Природа', label: 'Природа'},
+        {id: 'Природознавство', label: 'Природознавство'},
         {id: 'Релігія', label: 'Релігія'},
         {id: 'Розслідування', label: 'Розслідування'},
         {id: 'Переконливість', label: 'Переконливість'},
@@ -98,6 +115,14 @@ const CreateChar: React.FC = () => {
     const createChar2Ref = useRef<HTMLDivElement>(null);
     const createChar3Ref = useRef<HTMLDivElement>(null);
     const createChar4Ref = useRef<HTMLDivElement>(null);
+
+    const isSubmitDisabled =
+        selectedSkills.length !== 3 ||
+        !selectedWeapon ||
+        !selectedArmor ||
+        !selectedEquipment ||
+        name.trim() === '';
+
 
     useEffect(() => {
         const options = {
@@ -158,13 +183,52 @@ const CreateChar: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //
+    //     // Збираємо всі дані з форми
+    //     const formData = new FormData(e.target as HTMLFormElement);
+    //     const formValues = Object.fromEntries(formData.entries());
+    //
+    //     const payload = {
+    //         name_ch: formValues.name_ch,
+    //         race: formValues.race,
+    //         class: formValues.class,
+    //         level: parseInt(formValues.level as string, 10),
+    //         strength: stats.strength,
+    //         dexterity: stats.dexterity,
+    //         constitution: stats.constitution,
+    //         intellect: stats.intellect,
+    //         wisdom: stats.wisdom,
+    //         charisma: stats.charisma,
+    //         proficiencies: selectedSkills, // Наприклад, масив навичок
+    //         equipment: [selectedWeapon, selectedArmor, selectedEquipment], // Об'єднуємо вибрані зброю, обладунок і спорядження
+    //     };
+    //
+    //
+    //     try {
+    //         const response = await httpClient.post('//localhost:5000/characters/api/create-new', payload);
+    //         if (response.status === 201) {
+    //             navigate('/charlist')
+    //         }
+    //
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [formPayload, setFormPayload] = useState<any>(null); // Збереження зібраних даних з форми для підтвердження
+
+    const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         // Збираємо всі дані з форми
         const formData = new FormData(e.target as HTMLFormElement);
         const formValues = Object.fromEntries(formData.entries());
 
+        // Формуємо payload
         const payload = {
             name_ch: formValues.name_ch,
             race: formValues.race,
@@ -176,25 +240,36 @@ const CreateChar: React.FC = () => {
             intellect: stats.intellect,
             wisdom: stats.wisdom,
             charisma: stats.charisma,
-            proficiencies: selectedSkills, // Наприклад, масив навичок
-            equipment: [selectedWeapon, selectedArmor, selectedEquipment], // Об'єднуємо вибрані зброю, обладунок і спорядження
+            proficiencies: selectedSkills,
+            equipment: [selectedWeapon, selectedArmor, selectedEquipment],
         };
 
+        // Зберігаємо payload у стан
+        setFormPayload(payload);
+
+        // Відкриваємо модальне вікно
+        setIsModalOpen(true);
+    };
+
+    const handleConfirmSubmit = async () => {
+        if (!formPayload) return;
 
         try {
-            const response = await httpClient.post('//localhost:5000/characters/api/create-new', payload);
+            const response = await httpClient.post('//localhost:5000/characters/api/create-new', formPayload);
             if (response.status === 201) {
-                navigate('/charlist')
+                navigate('/charlist'); // Перехід до списку персонажів
             }
-
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsModalOpen(false); // Закриваємо модальне вікно
         }
     };
 
+
     return (
         <main className={styles.maincls}>
-            <form onSubmit={handleSubmit} method="POST">
+            <form onSubmit={(e) => handleFormSubmit(e)}>
                 <div className={styles["create-char-top"]}>
                     <div className={styles["create-char-top-container"]}>
                         <div ref={createChar1Ref} className={styles["create-char-caption"]} id="id-create-char-caption">
@@ -476,9 +551,17 @@ const CreateChar: React.FC = () => {
                     </div>
                 </div>
                 <div className={styles["submit-button-flex"]}>
-                    <input type="submit" className={styles["submit-button"]} value="Почати пригоди"/>
+                    <input type="submit" className={styles["submit-button"]} value="Почати пригоди"
+                           disabled={isSubmitDisabled}/>
                 </div>
             </form>
+            <Modal
+                isOpen={isModalOpen}
+                message="Ви впевнені, що хочете створити персонажа з цими характеристиками?"
+                onConfirm={handleConfirmSubmit}
+                onCancel={() => setIsModalOpen(false)}
+            />
+
         </main>
     );
 };
