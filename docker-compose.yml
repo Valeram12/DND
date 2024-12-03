@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Backend/DND/Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env  # Підключаємо змінні середовища з файлу .env
+    depends_on:
+      - redis  # Flask залежить від Redis
+    restart: always
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"  # Експортуємо порт Redis для доступу
+    restart: always
+
+
+  frontend:
+    build:
+      context: ./Frontend/dnd-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"  # Порт 3000 для локального доступу до фронтенду
+    depends_on:
+      - backend
+    restart: always

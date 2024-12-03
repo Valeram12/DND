@@ -20,3 +20,18 @@
 /DnD React/dndreact/dnd-app/node_modules/
 /DnD React/dndreact/dnd-app/public/
 /DnD React/dndreact/dnd-app/src/assets/
+
+DnD_React/
+DnD_Flask/
+
+/Backend/DND/.venv
+/Backend/DND/app/static
+/Backend/DND/app/templates
+/Backend/DND/__pycache__
+/Backend/DND/.env
+/Backend/DND/dnd.db
+/Backend/DND/instance
+
+/Frontend/dnd-app/node_modules
+/Frontend/dnd-app/public/assets
+/Frontend/dnd-app/src/assets
